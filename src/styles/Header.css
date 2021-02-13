@@ -7,6 +7,6 @@
 
 .title {
   font-size: 2rem;
-  font-family: 'Cinzel', serif;
+  font-family: 'Cinzel', serif !important;
   font-weight: 500;
 }

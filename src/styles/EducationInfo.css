@@ -1,0 +1,32 @@
+.btn {
+  margin: auto;
+  display: flex;
+  place-items: center;
+  color: white;
+  padding: 0.5rem 0.5rem;
+  border-radius: 100%;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:hover {
+  box-shadow: 0 0 10px black;
+}
+
+.add-btn {
+  background: rgba(0, 132, 255, 0.582);
+}
+
+.delete-btn {
+  background: rgba(255, 26, 26, 0.671);
+}
+
+.extradiv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 3rem;
+}

@@ -1,0 +1,57 @@
+.body-info {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+}
+
+.buttons {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons > button {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  background: white;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  border: none;
+}
+
+.buttons > button:focus {
+  outline: none;
+}
+
+.buttons > button:hover {
+  box-shadow: 0 0 10px black;
+}
+
+.start-btn {
+  margin-top: 13rem;
+  font-size: 2rem;
+  padding: 1.5rem 2rem;
+  border-radius: 3rem;
+  background: rgb(236, 233, 233);
+  border: none;
+  cursor: pointer;
+}
+
+.start-btn:focus {
+  outline: none;
+}
+
+.start-btn:hover {
+  background: white;
+  box-shadow: 0 0 10px black;
+}
