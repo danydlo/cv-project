@@ -10,18 +10,66 @@ class InputField extends Component {
   }
 
   handleChange(e) {
-    if (this.props.section === 'contact') {
-      this.props.handleChange(e.target.name, e.target.value)
-    } else {
-      this.props.handleChange(e.target.name, e.target.value, this.props.index)
-    }
+    const { section, handleChange, index } = this.props
+    const { name, value, checked } = e.target
+    if (name === 'end' && checked) handleChange(section, name, 'present', index)
+    else handleChange(section, name, value, index)
   }
 
   render() {
     const { value, name } = this.props
     const label = name[0].toUpperCase() + name.slice(1)
 
-    if (name !== 'phone') {
+    if (name === 'phone') {
+      return (
+        <div className={containerClass(name)}>
+          <label className="input-label">{label}</label>
+          <input
+            className="input-box"
+            type="tel"
+            value={value}
+            name={name}
+            onChange={this.handleChange}
+            placeholder={makePlaceHolder(name)}
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          />
+        </div>
+      )
+    } else if (name === 'summary') {
+      return (
+        <div className={containerClass(name)}>
+          <label className="input-label">{label}</label>
+          <textarea
+            className="input-textarea"
+            value={value}
+            name={name}
+            onChange={this.handleChange}
+            placeholder={makePlaceHolder(name)}
+          />
+        </div>
+      )
+    } else if (name === 'end') {
+      return (
+        <div className={containerClass(name)}>
+          <div className="end-div">
+            <label className="input-label">{label}</label>
+            <div>
+              <input type="checkbox" name="end" onChange={this.handleChange} />
+              <label className="input-label">Present</label>
+            </div>
+          </div>
+          <input
+            className="input-box"
+            type={value === 'present' ? 'text' : inputType(name)}
+            readOnly={value === 'present' ? true : false}
+            value={value === 'on' ? '' : value}
+            name={name}
+            onChange={this.handleChange}
+            placeholder={makePlaceHolder(name)}
+          />
+        </div>
+      )
+    } else {
       return (
         <div className={containerClass(name)}>
           <label className="input-label">{label}</label>
@@ -32,21 +80,6 @@ class InputField extends Component {
             name={name}
             onChange={this.handleChange}
             placeholder={makePlaceHolder(name)}
-          />
-        </div>
-      )
-    } else {
-      return (
-        <div className="input-container">
-          <label className="input-label">{label}</label>
-          <input
-            className="input-box"
-            type="tel"
-            value={value}
-            name={name}
-            onChange={this.handleChange}
-            placeholder={makePlaceHolder(name)}
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           />
         </div>
       )

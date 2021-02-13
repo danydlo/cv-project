@@ -17,6 +17,7 @@
   padding-top: 1rem;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 3rem;
 }
 
 .buttons > button {

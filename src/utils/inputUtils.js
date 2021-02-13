@@ -21,18 +21,24 @@ export function makePlaceHolder(name) {
     case 'website':
       return 'somesite.com'
     case 'degree':
-      return 'Degree'
+      return 'Computer Engineering'
     case 'program':
-      return 'Program'
+      return 'Engineering'
     case 'university':
-      return 'University'
+      return 'Harvard'
+    case 'title':
+      return 'CEO'
+    case 'company':
+      return 'Google'
+    case 'summary':
+      return 'Summarize your experience and responsabilities.'
     default:
       return null
   }
 }
 
 export function containerClass(name) {
-  if (name === 'university' || name === 'name' || name === 'address') {
+  if (name === 'university' || name === 'name' || name === 'address' || name === 'summary') {
     return 'input-container two-cols'
   } else {
     return 'input-container'

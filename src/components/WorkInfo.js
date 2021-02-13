@@ -1,14 +1,14 @@
 import InputField from './InputField'
 import '../styles/EducationWorkInfo.css'
 
-function EducationInfo(props) {
-  const { addEducation, deleteEducation, handleChange, education, changeMode } = props
+function WorkInfo(props) {
+  const { addWork, deleteWork, handleChange, work, changeMode } = props
 
-  const educationInputs = education.map((element, index) => {
-    const education = Object.entries(element)
-    return education.map(input => (
+  const workInputs = work.map((element, index) => {
+    const work = Object.entries(element)
+    return work.map(input => (
       <InputField
-        section="education"
+        section="work"
         index={index}
         value={input[1]}
         name={input[0]}
@@ -21,33 +21,34 @@ function EducationInfo(props) {
   return (
     <div>
       <div className="section-container">
-        {educationInputs.map((element, index) => {
+        {workInputs.map((element, index) => {
           if (index === 0) {
             return element
-          } else
+          } else {
             return (
               <div className="extradiv two-cols">
-                <button className="btn delete-btn two-cols" onClick={() => deleteEducation('education', index)}>
+                <button className="btn delete-btn two-cols" onClick={() => deleteWork('work', index)}>
                   <span className="material-icons">clear</span>
                 </button>
                 {element}
               </div>
             )
+          }
         })}
-        <button className="btn add-btn two-cols" onClick={() => addEducation('education')}>
+        <button className="btn add-btn two-cols" onClick={() => addWork('work')}>
           <span className="material-icons">add</span>
         </button>
       </div>
       <div className="buttons">
-        <button className="button" onClick={() => changeMode('contact')}>
+        <button className="button" onClick={() => changeMode('education')}>
           Back
         </button>
         <button className="button" onClick={() => changeMode('work')}>
-          Work
+          Preview
         </button>
       </div>
     </div>
   )
 }
 
-export default EducationInfo
+export default WorkInfo
