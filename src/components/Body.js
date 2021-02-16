@@ -2,6 +2,10 @@ import React, { Component } from 'react'
 import ContactInfo from './ContactInfo'
 import EducationInfo from './EducationInfo'
 import WorkInfo from './WorkInfo'
+import SkillsInfo from './SkillsInfo'
+import PDF from './PDF'
+import { formatValue } from '../utils/bodyUtils'
+import { PDFViewer } from '@react-pdf/renderer'
 import '../styles/Body.css'
 
 class Body extends Component {
@@ -9,7 +13,7 @@ class Body extends Component {
     super()
 
     this.state = {
-      mode: 'start',
+      mode: 'skills',
       contact: {
         name: '',
         address: '',
@@ -35,9 +39,10 @@ class Body extends Component {
           company: '',
           start: '',
           end: '',
-          summary: ''
+          bullets: '\u2022 '
         }
-      ]
+      ],
+      skills: ['JavaScript']
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -46,7 +51,7 @@ class Body extends Component {
     this.changeMode = this.changeMode.bind(this)
   }
 
-  handleChange(section, name, value, index = 0) {
+  handleChange(section, name, value, index = 0, key = '') {
     this.setState(state => {
       if (section === 'contact') {
         const newContact = { ...state.contact }
@@ -56,10 +61,14 @@ class Body extends Component {
         const newEducation = [...state.education]
         newEducation[index][name] = value
         return { education: newEducation }
-      } else {
+      } else if (section === 'work') {
         const newWork = [...state.work]
-        newWork[index][name] = value
+        newWork[index][name] = key === 'Enter' ? formatValue(value) : value
         return { work: newWork }
+      } else {
+        const newSkills = { ...state.skills }
+        newSkills[index] = value
+        return { skills: newSkills }
       }
     })
   }
@@ -78,9 +87,10 @@ class Body extends Component {
       } else {
         const newWork = state.work.concat({
           title: '',
+          company: '',
           start: '',
           end: '',
-          bullets: ''
+          bullets: '\u2022 '
         })
         return { work: newWork }
       }
@@ -106,7 +116,7 @@ class Body extends Component {
   }
 
   render() {
-    const { mode, contact, education, work } = this.state
+    const { mode, contact, education, work, skills } = this.state
 
     if (mode === 'start') {
       return (
@@ -147,6 +157,26 @@ class Body extends Component {
             deleteWork={this.deleteItem}
             changeMode={this.changeMode}
           />
+        </div>
+      )
+    } else if (mode === 'skills') {
+      return (
+        <div className="body-info">
+          <h1 className="section-title">Add Skills</h1>
+          <SkillsInfo skills={skills} handleChange={this.handleChange} changeMode={this.changeMode} />
+        </div>
+      )
+    } else if (mode === 'preview') {
+      return (
+        <div className="preview">
+          <PDFViewer width="900px" height="750px">
+            <PDF contact={contact} education={education} work={work} />
+          </PDFViewer>
+          <div className="buttons">
+            <button className="button" onClick={() => this.changeMode('work')}>
+              Back
+            </button>
+          </div>
         </div>
       )
     }

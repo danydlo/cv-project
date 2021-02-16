@@ -43,7 +43,7 @@ function WorkInfo(props) {
         <button className="button" onClick={() => changeMode('education')}>
           Back
         </button>
-        <button className="button" onClick={() => changeMode('work')}>
+        <button className="button" onClick={() => changeMode('skills')}>
           Preview
         </button>
       </div>

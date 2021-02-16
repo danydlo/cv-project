@@ -56,3 +56,15 @@
   background: white;
   box-shadow: 0 0 10px black;
 }
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.preview > .buttons {
+  padding-bottom: 1rem;
+}

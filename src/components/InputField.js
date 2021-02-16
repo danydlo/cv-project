@@ -7,6 +7,7 @@ class InputField extends Component {
     super(props)
 
     this.handleChange = this.handleChange.bind(this)
+    this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
   handleChange(e) {
@@ -14,6 +15,13 @@ class InputField extends Component {
     const { name, value, checked } = e.target
     if (name === 'end' && checked) handleChange(section, name, 'present', index)
     else handleChange(section, name, value, index)
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') e.preventDefault()
+    const { section, handleChange, index } = this.props
+    const { name, value } = e.target
+    handleChange(section, name, value, index, e.key)
   }
 
   render() {
@@ -35,7 +43,7 @@ class InputField extends Component {
           />
         </div>
       )
-    } else if (name === 'summary') {
+    } else if (name === 'bullets') {
       return (
         <div className={containerClass(name)}>
           <label className="input-label">{label}</label>
@@ -43,6 +51,7 @@ class InputField extends Component {
             className="input-textarea"
             value={value}
             name={name}
+            onKeyPress={this.handleKeyPress}
             onChange={this.handleChange}
             placeholder={makePlaceHolder(name)}
           />

@@ -3,6 +3,7 @@
 h1,
 label,
 input,
+textarea,
 div,
 button {
   font-family: 'Roboto', sans-serif !important;

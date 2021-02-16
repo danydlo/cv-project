@@ -30,7 +30,7 @@ export function makePlaceHolder(name) {
       return 'CEO'
     case 'company':
       return 'Google'
-    case 'summary':
+    case 'bullets':
       return 'Summarize your experience and responsabilities.'
     default:
       return null
@@ -38,7 +38,7 @@ export function makePlaceHolder(name) {
 }
 
 export function containerClass(name) {
-  if (name === 'university' || name === 'name' || name === 'address' || name === 'summary') {
+  if (name === 'university' || name === 'name' || name === 'address' || name === 'bullets') {
     return 'input-container two-cols'
   } else {
     return 'input-container'
