@@ -25,13 +25,15 @@ export function makePlaceHolder(name) {
     case 'program':
       return 'Engineering'
     case 'university':
-      return 'Harvard'
+      return 'UTRGV'
     case 'title':
       return 'CEO'
     case 'company':
       return 'Google'
     case 'bullets':
-      return 'Summarize your experience and responsabilities.'
+      return 'Summarize your experience and responsabilities in bullets.'
+    case 'skill':
+      return 'Amazing skill'
     default:
       return null
   }

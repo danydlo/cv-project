@@ -13,7 +13,7 @@ class Body extends Component {
     super()
 
     this.state = {
-      mode: 'skills',
+      mode: 'start',
       contact: {
         name: '',
         address: '',
@@ -42,7 +42,7 @@ class Body extends Component {
           bullets: '\u2022 '
         }
       ],
-      skills: ['JavaScript']
+      skills: ['', '', '', '']
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -66,7 +66,7 @@ class Body extends Component {
         newWork[index][name] = key === 'Enter' ? formatValue(value) : value
         return { work: newWork }
       } else {
-        const newSkills = { ...state.skills }
+        const newSkills = [...state.skills]
         newSkills[index] = value
         return { skills: newSkills }
       }
@@ -84,7 +84,7 @@ class Body extends Component {
           end: ''
         })
         return { education: newEducation }
-      } else {
+      } else if (section === 'work') {
         const newWork = state.work.concat({
           title: '',
           company: '',
@@ -93,6 +93,9 @@ class Body extends Component {
           bullets: '\u2022 '
         })
         return { work: newWork }
+      } else {
+        const newSkills = state.skills.concat('')
+        return { skills: newSkills }
       }
     })
   }
@@ -103,10 +106,14 @@ class Body extends Component {
         const { education } = state
         const newEducation = [...education.slice(0, index), ...education.slice(index + 1)]
         return { education: newEducation }
-      } else {
+      } else if (section === 'work') {
         const { work } = state
         const newWork = [...work.slice(0, index), ...work.slice(index + 1)]
         return { work: newWork }
+      } else {
+        const { skills } = state
+        const newSkills = [...skills.slice(0, index), ...skills.slice(index + 1)]
+        return { skills: newSkills }
       }
     })
   }
@@ -163,17 +170,23 @@ class Body extends Component {
       return (
         <div className="body-info">
           <h1 className="section-title">Add Skills</h1>
-          <SkillsInfo skills={skills} handleChange={this.handleChange} changeMode={this.changeMode} />
+          <SkillsInfo
+            skills={skills}
+            handleChange={this.handleChange}
+            addSkill={this.addItem}
+            deleteSkill={this.deleteItem}
+            changeMode={this.changeMode}
+          />
         </div>
       )
     } else if (mode === 'preview') {
       return (
         <div className="preview">
           <PDFViewer width="900px" height="750px">
-            <PDF contact={contact} education={education} work={work} />
+            <PDF contact={contact} education={education} work={work} skills={skills} />
           </PDFViewer>
           <div className="buttons">
-            <button className="button" onClick={() => this.changeMode('work')}>
+            <button className="button" onClick={() => this.changeMode('skills')}>
               Back
             </button>
           </div>

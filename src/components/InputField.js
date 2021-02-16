@@ -26,7 +26,7 @@ class InputField extends Component {
 
   render() {
     const { value, name } = this.props
-    const label = name[0].toUpperCase() + name.slice(1)
+    const label = name === 'skill' ? '' : name[0].toUpperCase() + name.slice(1)
 
     if (name === 'phone') {
       return (

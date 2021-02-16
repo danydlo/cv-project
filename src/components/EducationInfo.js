@@ -1,5 +1,5 @@
 import InputField from './InputField'
-import '../styles/EducationWorkInfo.css'
+import '../styles/Sections.css'
 
 function EducationInfo(props) {
   const { addEducation, deleteEducation, handleChange, education, changeMode } = props

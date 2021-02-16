@@ -30,3 +30,18 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem 3rem;
 }
+
+.skills-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.skills-div > .btn {
+  margin-left: 1rem;
+}
+
+.skills-btn {
+  font-size: 1rem;
+  border-radius: 3rem;
+  padding: 1rem 1.5rem;
+}

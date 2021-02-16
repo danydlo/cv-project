@@ -1,14 +1,8 @@
-import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer'
-import { formatDate, formatWork, isEmpty, styleSheet } from '../utils/pdfUtils'
-import Roboto from '../fonts/Roboto-Regular.ttf'
-import RobotoBold from '../fonts/Roboto-Bold.ttf'
-
-Font.register({ family: 'Roboto', fonts: [{ src: Roboto }, { src: RobotoBold, fontStyle: 'bold' }] })
-
-const styles = StyleSheet.create(styleSheet)
+import { Page, Text, View, Document } from '@react-pdf/renderer'
+import { formatDate, formatWork, formatSkills, isEmpty, styles } from '../utils/pdfUtils'
 
 function PDF(props) {
-  const { contact, education, work } = props
+  const { contact, education, work, skills } = props
 
   return (
     <Document>
@@ -52,6 +46,14 @@ function PDF(props) {
                 <Text style={styles.sectionTextBullets}>{el.bullets}</Text>
               </View>
             ))}
+          </View>
+        )}
+        {isEmpty(skills, true) ? (
+          <Text />
+        ) : (
+          <View style={styles.skills}>
+            <Text>Skills</Text>
+            {formatSkills(skills)}
           </View>
         )}
       </Page>

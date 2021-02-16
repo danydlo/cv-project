@@ -1,5 +1,5 @@
 import InputField from './InputField'
-import '../styles/EducationWorkInfo.css'
+import '../styles/Sections.css'
 
 function WorkInfo(props) {
   const { addWork, deleteWork, handleChange, work, changeMode } = props
@@ -44,7 +44,7 @@ function WorkInfo(props) {
           Back
         </button>
         <button className="button" onClick={() => changeMode('skills')}>
-          Preview
+          Skills
         </button>
       </div>
     </div>
