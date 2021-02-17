@@ -21,6 +21,7 @@ body {
 }
 
 .section-container {
+  margin-top: 1rem;
   background: white;
   padding: 1.5rem 2.5rem;
   display: grid;

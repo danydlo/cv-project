@@ -1,4 +1,5 @@
 import InputField from './InputField'
+import ChangeMode from './ChangeMode'
 import '../styles/Sections.css'
 
 function EducationInfo(props) {
@@ -18,34 +19,33 @@ function EducationInfo(props) {
     ))
   })
 
+  const addButton = educationInputs.map((element, index) => {
+    if (index === 0) {
+      return (
+        <div className="extradiv two-cols" key={'education' + index}>
+          {element}
+        </div>
+      )
+    } else
+      return (
+        <div className="extradiv two-cols" key={'education' + index}>
+          <button className="btn delete-btn two-cols" onClick={() => deleteEducation('education', index)}>
+            <span className="material-icons">clear</span>
+          </button>
+          {element}
+        </div>
+      )
+  })
+
   return (
     <div>
       <div className="section-container">
-        {educationInputs.map((element, index) => {
-          if (index === 0) {
-            return element
-          } else
-            return (
-              <div className="extradiv two-cols">
-                <button className="btn delete-btn two-cols" onClick={() => deleteEducation('education', index)}>
-                  <span className="material-icons">clear</span>
-                </button>
-                {element}
-              </div>
-            )
-        })}
+        {addButton}
         <button className="btn add-btn two-cols" onClick={() => addEducation('education')}>
           <span className="material-icons">add</span>
         </button>
       </div>
-      <div className="buttons">
-        <button className="button" onClick={() => changeMode('contact')}>
-          Back
-        </button>
-        <button className="button" onClick={() => changeMode('work')}>
-          Work
-        </button>
-      </div>
+      <ChangeMode back="Contact" next="Work" changeMode={changeMode} />
     </div>
   )
 }

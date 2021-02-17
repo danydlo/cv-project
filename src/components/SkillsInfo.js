@@ -1,4 +1,5 @@
 import InputField from './InputField'
+import ChangeMode from './ChangeMode'
 import '../styles/Sections.css'
 
 function SkillsInfo(props) {
@@ -12,6 +13,7 @@ function SkillsInfo(props) {
       </button>
     </div>
   ))
+
   return (
     <div>
       <div className="section-container">
@@ -20,14 +22,7 @@ function SkillsInfo(props) {
           Add Skill
         </button>
       </div>
-      <div className="buttons">
-        <button className="button" onClick={() => changeMode('work')}>
-          Back
-        </button>
-        <button className="button" onClick={() => changeMode('preview')}>
-          Preview
-        </button>
-      </div>
+      <ChangeMode back="Work" next="Preview" changeMode={changeMode} />
     </div>
   )
 }

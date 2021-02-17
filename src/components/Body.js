@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { data } from '../data/data'
 import ContactInfo from './ContactInfo'
 import EducationInfo from './EducationInfo'
 import WorkInfo from './WorkInfo'
@@ -13,36 +14,11 @@ class Body extends Component {
     super()
 
     this.state = {
-      mode: 'start',
-      contact: {
-        name: '',
-        address: '',
-        city: '',
-        state: '',
-        zip: '',
-        email: '',
-        phone: '',
-        website: ''
-      },
-      education: [
-        {
-          degree: '',
-          program: '',
-          university: '',
-          start: '',
-          end: ''
-        }
-      ],
-      work: [
-        {
-          title: '',
-          company: '',
-          start: '',
-          end: '',
-          bullets: '\u2022 '
-        }
-      ],
-      skills: ['', '', '', '']
+      mode: 'Start',
+      contact: data.contact,
+      education: data.education,
+      work: data.work,
+      skills: data.skills
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -54,21 +30,17 @@ class Body extends Component {
   handleChange(section, name, value, index = 0, key = '') {
     this.setState(state => {
       if (section === 'contact') {
-        const newContact = { ...state.contact }
+        const newContact = { ...state[section] }
         newContact[name] = value
         return { contact: newContact }
-      } else if (section === 'education') {
-        const newEducation = [...state.education]
-        newEducation[index][name] = value
-        return { education: newEducation }
-      } else if (section === 'work') {
-        const newWork = [...state.work]
-        newWork[index][name] = key === 'Enter' ? formatValue(value) : value
-        return { work: newWork }
-      } else {
+      } else if (section === 'skills') {
         const newSkills = [...state.skills]
         newSkills[index] = value
         return { skills: newSkills }
+      } else {
+        const newSection = [...state[section]]
+        newSection[index][name] = key === 'Enter' ? formatValue(value) : value
+        return { [section]: newSection }
       }
     })
   }
@@ -102,19 +74,9 @@ class Body extends Component {
 
   deleteItem(section, index) {
     this.setState(state => {
-      if (section === 'education') {
-        const { education } = state
-        const newEducation = [...education.slice(0, index), ...education.slice(index + 1)]
-        return { education: newEducation }
-      } else if (section === 'work') {
-        const { work } = state
-        const newWork = [...work.slice(0, index), ...work.slice(index + 1)]
-        return { work: newWork }
-      } else {
-        const { skills } = state
-        const newSkills = [...skills.slice(0, index), ...skills.slice(index + 1)]
-        return { skills: newSkills }
-      }
+      const oldSection = state[section]
+      const newSection = [...oldSection.slice(0, index), ...oldSection.slice(index + 1)]
+      return { [section]: newSection }
     })
   }
 
@@ -125,22 +87,22 @@ class Body extends Component {
   render() {
     const { mode, contact, education, work, skills } = this.state
 
-    if (mode === 'start') {
+    if (mode === 'Start') {
       return (
         <div className="body-info">
-          <button className="start-btn" onClick={() => this.changeMode('contact')}>
+          <button className="start-btn" onClick={() => this.changeMode('Contact')}>
             START
           </button>
         </div>
       )
-    } else if (mode === 'contact') {
+    } else if (mode === 'Contact') {
       return (
         <div className="body-info">
           <h1 className="section-title">Contact Information</h1>
           <ContactInfo contact={contact} handleChange={this.handleChange} changeMode={this.changeMode} />
         </div>
       )
-    } else if (mode === 'education') {
+    } else if (mode === 'Education') {
       return (
         <div className="body-info">
           <h1 className="section-title">Education</h1>
@@ -153,7 +115,7 @@ class Body extends Component {
           />
         </div>
       )
-    } else if (mode === 'work') {
+    } else if (mode === 'Work') {
       return (
         <div className="body-info">
           <h1 className="section-title">Work Experience</h1>
@@ -166,7 +128,7 @@ class Body extends Component {
           />
         </div>
       )
-    } else if (mode === 'skills') {
+    } else if (mode === 'Skills') {
       return (
         <div className="body-info">
           <h1 className="section-title">Add Skills</h1>
@@ -179,15 +141,15 @@ class Body extends Component {
           />
         </div>
       )
-    } else if (mode === 'preview') {
+    } else if (mode === 'Preview') {
       return (
         <div className="preview">
           <PDFViewer width="900px" height="750px">
             <PDF contact={contact} education={education} work={work} skills={skills} />
           </PDFViewer>
           <div className="buttons">
-            <button className="button" onClick={() => this.changeMode('skills')}>
-              Back
+            <button className="button" onClick={() => this.changeMode('Skills')}>
+              Skills
             </button>
           </div>
         </div>

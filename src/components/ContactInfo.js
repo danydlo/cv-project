@@ -1,4 +1,5 @@
 import InputField from './InputField'
+import ChangeMode from './ChangeMode'
 
 function ContactInfo(props) {
   const { changeMode, handleChange, contact } = props
@@ -11,14 +12,7 @@ function ContactInfo(props) {
   return (
     <div>
       <div className="section-container">{inputs}</div>
-      <div className="buttons">
-        <button className="button" onClick={() => changeMode('start')}>
-          Back
-        </button>
-        <button className="button" onClick={() => changeMode('education')}>
-          Education
-        </button>
-      </div>
+      <ChangeMode back="Start" next="Education" changeMode={changeMode} />
     </div>
   )
 }
