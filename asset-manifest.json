@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/cv-project/static/css/main.497fc0d6.chunk.css",
-    "main.js": "/cv-project/static/js/main.7cd0c9fa.chunk.js",
-    "main.js.map": "/cv-project/static/js/main.7cd0c9fa.chunk.js.map",
+    "main.js": "/cv-project/static/js/main.e4f283cf.chunk.js",
+    "main.js.map": "/cv-project/static/js/main.e4f283cf.chunk.js.map",
     "runtime-main.js": "/cv-project/static/js/runtime-main.e0af79ca.js",
     "runtime-main.js.map": "/cv-project/static/js/runtime-main.e0af79ca.js.map",
-    "static/js/2.f5004b70.chunk.js": "/cv-project/static/js/2.f5004b70.chunk.js",
-    "static/js/2.f5004b70.chunk.js.map": "/cv-project/static/js/2.f5004b70.chunk.js.map",
+    "static/js/2.d9fa96ba.chunk.js": "/cv-project/static/js/2.d9fa96ba.chunk.js",
+    "static/js/2.d9fa96ba.chunk.js.map": "/cv-project/static/js/2.d9fa96ba.chunk.js.map",
     "index.html": "/cv-project/index.html",
     "static/css/main.497fc0d6.chunk.css.map": "/cv-project/static/css/main.497fc0d6.chunk.css.map",
-    "static/js/2.f5004b70.chunk.js.LICENSE.txt": "/cv-project/static/js/2.f5004b70.chunk.js.LICENSE.txt",
+    "static/js/2.d9fa96ba.chunk.js.LICENSE.txt": "/cv-project/static/js/2.d9fa96ba.chunk.js.LICENSE.txt",
     "static/media/Roboto-Bold.4f39c579.ttf": "/cv-project/static/media/Roboto-Bold.4f39c579.ttf",
     "static/media/Roboto-Regular.03523cf5.ttf": "/cv-project/static/media/Roboto-Regular.03523cf5.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.e0af79ca.js",
-    "static/js/2.f5004b70.chunk.js",
+    "static/js/2.d9fa96ba.chunk.js",
     "static/css/main.497fc0d6.chunk.css",
-    "static/js/main.7cd0c9fa.chunk.js"
+    "static/js/main.e4f283cf.chunk.js"
   ]
 }
