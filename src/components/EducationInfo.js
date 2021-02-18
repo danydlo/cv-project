@@ -2,9 +2,7 @@ import InputField from './InputField'
 import ChangeMode from './ChangeMode'
 import '../styles/Sections.css'
 
-function EducationInfo(props) {
-  const { addEducation, deleteEducation, handleChange, education, changeMode } = props
-
+function EducationInfo({ addEducation, deleteEducation, handleChange, education, changeMode }) {
   const educationInputs = education.map((element, index) => {
     const education = Object.entries(element)
     return education.map(input => (

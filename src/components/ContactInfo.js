@@ -1,9 +1,7 @@
 import InputField from './InputField'
 import ChangeMode from './ChangeMode'
 
-function ContactInfo(props) {
-  const { changeMode, handleChange, contact } = props
-
+function ContactInfo({ changeMode, handleChange, contact }) {
   const contactEntries = Object.entries(contact)
   const inputs = contactEntries.map(input => (
     <InputField section="contact" value={input[1]} name={input[0]} handleChange={handleChange} key={input[0]} />

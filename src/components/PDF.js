@@ -1,9 +1,7 @@
 import { Page, Text, View, Document } from '@react-pdf/renderer'
 import { formatDate, formatWork, formatSkills, isEmpty, styles } from '../utils/pdfUtils'
 
-function PDF(props) {
-  const { contact, education, work, skills } = props
-
+function PDF({ contact, education, work, skills }) {
   return (
     <Document>
       <Page style={styles.body}>

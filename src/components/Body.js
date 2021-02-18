@@ -1,161 +1,138 @@
-import React, { Component } from 'react'
-import { data } from '../data/data'
+import React, { Component, useState } from 'react'
+import { PDFViewer } from '@react-pdf/renderer'
+//components
 import ContactInfo from './ContactInfo'
 import EducationInfo from './EducationInfo'
 import WorkInfo from './WorkInfo'
 import SkillsInfo from './SkillsInfo'
 import PDF from './PDF'
+//data and assets
+import { contact, education, work, skills } from '../data/data'
 import { formatValue } from '../utils/bodyUtils'
-import { PDFViewer } from '@react-pdf/renderer'
 import '../styles/Body.css'
 
-class Body extends Component {
-  constructor() {
-    super()
+function Body() {
+  const [mode, setMode] = useState('Start')
+  const [section, setSection] = useState({ contact, education, work, skills })
+  let body = null
 
-    this.state = {
-      mode: 'Start',
-      contact: data.contact,
-      education: data.education,
-      work: data.work,
-      skills: data.skills
+  const handleChange = (sectionName, name, value, index = 0, key = '') => {
+    let newSection = null
+    if (sectionName === 'contact') {
+      newSection = { ...section[sectionName] }
+      newSection[name] = value
+    } else if (sectionName === 'skills') {
+      newSection = [...section[sectionName]]
+      newSection[index] = value
+    } else {
+      newSection = [...section[sectionName]]
+      newSection[index][name] = key === 'Enter' ? formatValue(value) : value
     }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.addItem = this.addItem.bind(this)
-    this.deleteItem = this.deleteItem.bind(this)
-    this.changeMode = this.changeMode.bind(this)
+    setSection(prevState => ({ ...prevState, [sectionName]: newSection }))
   }
 
-  handleChange(section, name, value, index = 0, key = '') {
-    this.setState(state => {
-      if (section === 'contact') {
-        const newContact = { ...state[section] }
-        newContact[name] = value
-        return { contact: newContact }
-      } else if (section === 'skills') {
-        const newSkills = [...state.skills]
-        newSkills[index] = value
-        return { skills: newSkills }
-      } else {
-        const newSection = [...state[section]]
-        newSection[index][name] = key === 'Enter' ? formatValue(value) : value
-        return { [section]: newSection }
-      }
-    })
+  const addItem = sectionName => {
+    let newSection = null
+    if (sectionName === 'education') {
+      newSection = section[sectionName].concat({
+        degree: '',
+        program: '',
+        university: '',
+        start: '',
+        end: ''
+      })
+    } else if (sectionName === 'work') {
+      newSection = section[sectionName].concat({
+        title: '',
+        company: '',
+        start: '',
+        end: '',
+        bullets: '\u2022 '
+      })
+    } else {
+      newSection = section[sectionName].concat('')
+    }
+    setSection(prevState => ({ ...prevState, [sectionName]: newSection }))
   }
 
-  addItem(section) {
-    this.setState(state => {
-      if (section === 'education') {
-        const newEducation = state.education.concat({
-          degree: '',
-          program: '',
-          university: '',
-          start: '',
-          end: ''
-        })
-        return { education: newEducation }
-      } else if (section === 'work') {
-        const newWork = state.work.concat({
-          title: '',
-          company: '',
-          start: '',
-          end: '',
-          bullets: '\u2022 '
-        })
-        return { work: newWork }
-      } else {
-        const newSkills = state.skills.concat('')
-        return { skills: newSkills }
-      }
-    })
+  const deleteItem = (sectionName, index) => {
+    const oldSection = section[sectionName]
+    const newSection = [...oldSection.slice(0, index), ...oldSection.slice(index + 1)]
+    setSection(prevState => ({ ...prevState, [sectionName]: newSection }))
   }
 
-  deleteItem(section, index) {
-    this.setState(state => {
-      const oldSection = state[section]
-      const newSection = [...oldSection.slice(0, index), ...oldSection.slice(index + 1)]
-      return { [section]: newSection }
-    })
-  }
+  const changeMode = newMode => setMode(newMode)
 
-  changeMode(mode) {
-    this.setState({ mode })
-  }
-
-  render() {
-    const { mode, contact, education, work, skills } = this.state
-
-    if (mode === 'Start') {
-      return (
-        <div className="body-info">
-          <button className="start-btn" onClick={() => this.changeMode('Contact')}>
-            START
+  if (mode === 'Start') {
+    body = (
+      <div className="body-info">
+        <button className="start-btn" onClick={() => changeMode('Contact')}>
+          START
+        </button>
+      </div>
+    )
+  } else if (mode === 'Contact') {
+    body = (
+      <div className="body-info">
+        <h1 className="section-title">Contact Information</h1>
+        <ContactInfo contact={section.contact} handleChange={handleChange} changeMode={changeMode} />
+      </div>
+    )
+  } else if (mode === 'Education') {
+    body = (
+      <div className="body-info">
+        <h1 className="section-title">Education</h1>
+        <EducationInfo
+          education={section.education}
+          handleChange={handleChange}
+          addEducation={addItem}
+          deleteEducation={deleteItem}
+          changeMode={changeMode}
+        />
+      </div>
+    )
+  } else if (mode === 'Work') {
+    body = (
+      <div className="body-info">
+        <h1 className="section-title">Work Experience</h1>
+        <WorkInfo
+          work={section.work}
+          handleChange={handleChange}
+          addWork={addItem}
+          deleteWork={deleteItem}
+          changeMode={changeMode}
+        />
+      </div>
+    )
+  } else if (mode === 'Skills') {
+    body = (
+      <div className="body-info">
+        <h1 className="section-title">Add Skills</h1>
+        <SkillsInfo
+          skills={section.skills}
+          handleChange={handleChange}
+          addSkill={addItem}
+          deleteSkill={deleteItem}
+          changeMode={changeMode}
+        />
+      </div>
+    )
+  } else if (mode === 'Preview') {
+    body = (
+      <div className="preview">
+        <PDFViewer width="900px" height="750px">
+          <PDF contact={section.contact} education={section.education} work={section.work} skills={section.skills} />
+        </PDFViewer>
+        <div className="buttons">
+          <button className="button" onClick={() => changeMode('Skills')}>
+            Skills
           </button>
         </div>
-      )
-    } else if (mode === 'Contact') {
-      return (
-        <div className="body-info">
-          <h1 className="section-title">Contact Information</h1>
-          <ContactInfo contact={contact} handleChange={this.handleChange} changeMode={this.changeMode} />
-        </div>
-      )
-    } else if (mode === 'Education') {
-      return (
-        <div className="body-info">
-          <h1 className="section-title">Education</h1>
-          <EducationInfo
-            education={education}
-            handleChange={this.handleChange}
-            addEducation={this.addItem}
-            deleteEducation={this.deleteItem}
-            changeMode={this.changeMode}
-          />
-        </div>
-      )
-    } else if (mode === 'Work') {
-      return (
-        <div className="body-info">
-          <h1 className="section-title">Work Experience</h1>
-          <WorkInfo
-            work={work}
-            handleChange={this.handleChange}
-            addWork={this.addItem}
-            deleteWork={this.deleteItem}
-            changeMode={this.changeMode}
-          />
-        </div>
-      )
-    } else if (mode === 'Skills') {
-      return (
-        <div className="body-info">
-          <h1 className="section-title">Add Skills</h1>
-          <SkillsInfo
-            skills={skills}
-            handleChange={this.handleChange}
-            addSkill={this.addItem}
-            deleteSkill={this.deleteItem}
-            changeMode={this.changeMode}
-          />
-        </div>
-      )
-    } else if (mode === 'Preview') {
-      return (
-        <div className="preview">
-          <PDFViewer width="900px" height="750px">
-            <PDF contact={contact} education={education} work={work} skills={skills} />
-          </PDFViewer>
-          <div className="buttons">
-            <button className="button" onClick={() => this.changeMode('Skills')}>
-              Skills
-            </button>
-          </div>
-        </div>
-      )
-    }
+      </div>
+    )
   }
+
+  return body
 }
 
 export default Body

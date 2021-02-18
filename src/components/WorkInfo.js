@@ -2,9 +2,7 @@ import InputField from './InputField'
 import ChangeMode from './ChangeMode'
 import '../styles/Sections.css'
 
-function WorkInfo(props) {
-  const { addWork, deleteWork, handleChange, work, changeMode } = props
-
+function WorkInfo({ addWork, deleteWork, handleChange, work, changeMode }) {
   const workInputs = work.map((element, index) => {
     const work = Object.entries(element)
     return work.map(input => (
@@ -18,6 +16,7 @@ function WorkInfo(props) {
       />
     ))
   })
+
   const addButton = workInputs.map((element, index) => {
     if (index === 0) {
       return (

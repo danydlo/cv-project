@@ -1,5 +1,4 @@
-function ChangeMode(props) {
-  const { back, next, changeMode } = props
+function ChangeMode({ back, next, changeMode }) {
   return (
     <div className="buttons">
       <button className="button" onClick={() => changeMode(back)}>

@@ -2,9 +2,7 @@ import InputField from './InputField'
 import ChangeMode from './ChangeMode'
 import '../styles/Sections.css'
 
-function SkillsInfo(props) {
-  const { addSkill, deleteSkill, handleChange, skills, changeMode } = props
-
+function SkillsInfo({ addSkill, deleteSkill, handleChange, skills, changeMode }) {
   const skillsInputs = skills.map((element, index) => (
     <div className="skills-div" key={index}>
       <InputField section="skills" index={index} value={element} name="skill" handleChange={handleChange} />
